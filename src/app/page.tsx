@@ -1,10 +1,13 @@
+import Hero from '@/components/Hero';
 import React from 'react';
 
 const page = () => {
     return (
-        <div>
-            
-        </div>
+        <main className="m-0 p-0">
+
+            <Hero />
+
+        </main>
     );
 };
 
