@@ -58,6 +58,26 @@ const Hero = () => {
 
                     </div>
 
+
+                    {/* Hero Statistics */}
+                    <div className="mt-12 grid grid-cols-4 gap-3">
+                        <div className="rounded-full border border-white/30 bg-white/10 px-3 py-2 text-center text-xs text-white backdrop-blur-sm">
+                            <span className="font-bold">1,500+</span> Active Volunteers
+                        </div>
+
+                        <div className="rounded-full border border-white/30 bg-white/10 px-3 py-2 text-center text-xs text-white backdrop-blur-sm">
+                            <span className="font-bold">200+</span> Events Completed
+                        </div>
+
+                        <div className="rounded-full border border-white/30 bg-white/10 px-3 py-2 text-center text-xs text-white backdrop-blur-sm">
+                            <span className="font-bold">25,000+</span> Lives Impacted
+                        </div>
+
+                        <div className="rounded-full border border-white/30 bg-white/10 px-3 py-2 text-center text-xs text-white backdrop-blur-sm">
+                            <span className="font-bold">100%</span> Community Driven
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
