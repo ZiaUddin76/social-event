@@ -34,23 +34,24 @@ import {
 const Navbar = () => {
     return (
         <header className="w-full border-b bg-[#bd2929] text-white">
-            <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+            <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
 
                 {/* Logo */}
                 <Link href="/" className="text-xl font-bold shrink-0">
                     Event<span>Hub</span>
                 </Link>
 
-                {/* Desktop & Tablet Navigation */}
-                <div className="hidden sm:flex items-center gap-3 md:gap-6">
+                {/* Desktop & Tablet - Center Navigation */}
+                <Link
+                    href="/upcoming-events"
+                    className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm font-medium transition-colors hover:text-rose-200 sm:flex"
+                >
+                    <CalendarDaysIcon className="size-4" />
+                    <span>Upcoming Events</span>
+                </Link>
 
-                    <Link
-                        href="/upcoming-events"
-                        className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-rose-200"
-                    >
-                        <CalendarDaysIcon className="size-4" />
-                        <span>Upcoming Events</span>
-                    </Link>
+                {/* Desktop & Tablet - Login & Profile */}
+                <div className="ml-auto hidden items-center gap-3 sm:flex">
 
                     {/* Login */}
                     <Link
