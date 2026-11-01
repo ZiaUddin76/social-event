@@ -64,8 +64,7 @@ const RegisterPage = () => {
 
             toast.success("Account created successfully!")
 
-            router.push("/")
-            router.refresh()
+            router.push("/?register=success")
         } catch {
             toast.error("Something went wrong. Please try again.")
         } finally {

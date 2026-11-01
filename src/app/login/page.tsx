@@ -37,7 +37,6 @@ const LoginPage = () => {
             const { error } = await authClient.signIn.email({
                 email,
                 password,
-                callbackURL: "/",
             })
 
             if (error) {
@@ -45,9 +44,7 @@ const LoginPage = () => {
                 return
             }
 
-            toast.success("Welcome back!")
-            router.push("/")
-            router.refresh()
+            window.location.href = "/?login=success"
         } catch {
             toast.error("Something went wrong. Please try again.")
         } finally {
@@ -61,7 +58,7 @@ const LoginPage = () => {
 
             await authClient.signIn.social({
                 provider: "google",
-                callbackURL: "/",
+                callbackURL: "/?login=success",
             })
         } catch {
             toast.error("Google login failed. Please try again.")
@@ -229,7 +226,7 @@ const LoginPage = () => {
                             disabled={isPending || isGooglePending}
                             className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-3.5 font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
                         >
-                            <FcGoogle size={20} /> 
+                            <FcGoogle size={20} />
                             {isGooglePending ? "Connecting..." : "Continue with Google"}
                         </button>
 
