@@ -12,6 +12,9 @@ import {
     HeartHandshake,
 } from "lucide-react"
 import { toast } from "sonner"
+import type { Event } from "@/types/event"
+
+
 
 const eventTypes = [
     "Cleanup",
@@ -27,7 +30,7 @@ export default function CreateEventPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [minEventDate, setMinEventDate] = useState("")
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<Event>({
         title: "",
         eventType: "",
         description: "",
@@ -88,9 +91,22 @@ export default function CreateEventPage() {
             return
         }
 
+        // Validate location
+        if (!formData.location.trim()) {
+            toast.error("Please enter an event location.")
+            return
+        }
+
         // Validate image URL
         try {
-            new URL(formData.image)
+            const imageUrl = new URL(formData.image)
+
+            if (
+                imageUrl.protocol !== "http:" &&
+                imageUrl.protocol !== "https:"
+            ) {
+                throw new Error("Invalid image URL")
+            }
         } catch {
             toast.error("Please enter a valid image URL.")
             return
@@ -104,18 +120,6 @@ export default function CreateEventPage() {
             return
         }
 
-
-        if (!formData.eventDate || formData.eventDate < minEventDate) {
-            toast.error("Please select a future event date.")
-            return
-        }
-
-        // Validate location
-        if (!formData.location.trim()) {
-            toast.error("Please enter an event location.")
-            return
-        }
-
         // Validate event date
         if (!formData.eventDate || formData.eventDate < minEventDate) {
             toast.error("Please select a valid future event date.")
@@ -125,11 +129,25 @@ export default function CreateEventPage() {
         setIsSubmitting(true)
 
         try {
-            // API connection will be added later.
-            console.log("Event data:", formData)
+            // Send event data to backend
+            const res = await fetch("http://localhost:8000/create-event", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
 
-            toast.success("Event form is ready!")
+            if (!res.ok) {
+                throw new Error("Failed to create event")
+            }
 
+            const data = await res.json()
+            console.log(data)
+
+            toast.success("Event created successfully!")
+
+            // Reset form after successful submission
             setFormData({
                 title: "",
                 eventType: "",
@@ -138,15 +156,13 @@ export default function CreateEventPage() {
                 location: "",
                 eventDate: "",
             })
-        } catch {
+
+        } catch (error) {
+            console.error(error)
             toast.error("Something went wrong. Please try again.")
         } finally {
             setIsSubmitting(false)
         }
-
-
-
-
     }
 
     return (
@@ -273,7 +289,7 @@ export default function CreateEventPage() {
                                             Image Preview
                                         </p>
 
-                                        {/* <img
+                                        <img
                                             src={formData.image}
                                             alt="Event thumbnail preview"
                                             className="h-48 w-full rounded-xl border border-gray-200 object-cover"
@@ -283,7 +299,7 @@ export default function CreateEventPage() {
                                             onLoad={(e) => {
                                                 e.currentTarget.style.display = "block"
                                             }}
-                                        /> */}
+                                        />
                                     </div>
                                 )}
 
