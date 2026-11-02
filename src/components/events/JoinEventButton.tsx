@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { authClient } from "@/lib/auth-client"
 import { ArrowUpRight } from "lucide-react"
+
+const EVENT_SERVER_URL = "http://localhost:8000"
 
 type JoinEventButtonProps = {
     eventId: string
@@ -15,19 +17,41 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
     const router = useRouter()
     const { data: session, isPending } = authClient.useSession()
     const [isJoining, setIsJoining] = useState(false)
+    const [hasJoined, setHasJoined] = useState(false)
+
+    // Check with the backend if the logged in user has already joined this event.
+    useEffect(() => {
+        if (isPending || !session) return
+
+        fetch(`${EVENT_SERVER_URL}/event/${eventId}/joined`, {
+            credentials: "include",
+        })
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => {
+                if (data?.joined) {
+                    setHasJoined(true)
+                }
+            })
+            .catch(() => {})
+    }, [eventId, isPending, session])
+
+    const redirectToLogin = () => {
+        router.push(`/login?callbackURL=${encodeURIComponent(`/events/${eventId}`)}`)
+    }
 
     const handleJoin = async () => {
         if (!session) {
-            router.push(`/login?callbackURL=${encodeURIComponent(`/events/${eventId}`)}`)
             toast.info("Please log in to join this event.")
+            redirectToLogin()
             return
         }
 
         try {
             setIsJoining(true)
 
-            const res = await fetch("/api/events/join", {
+            const res = await fetch(`${EVENT_SERVER_URL}/join-event`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -38,19 +62,21 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
 
             if (!res.ok) {
                 if (res.status === 409) {
+                    setHasJoined(true)
                     toast.info("You have already joined this event.")
                     return
                 }
 
                 if (res.status === 401) {
                     toast.info("Please log in to join this event.")
-                    router.push(`/login?callbackURL=${encodeURIComponent(`/events/${eventId}`)}`)
+                    redirectToLogin()
                     return
                 }
 
                 throw new Error(data.message || "Failed to join event.")
             }
 
+            setHasJoined(true)
             toast.success("You have successfully joined this event!")
         } catch (error) {
             console.error(error)
@@ -65,14 +91,16 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
         <button
             type="button"
             onClick={handleJoin}
-            disabled={isPending || isJoining}
+            disabled={isPending || isJoining || hasJoined}
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-4 font-bold text-white transition-colors hover:bg-[#9e2020] disabled:cursor-not-allowed disabled:opacity-60"
         >
-            {isJoining
-                ? "Joining..."
-                : isPending
-                    ? "Checking..."
-                    : "Join Event"}
+            {hasJoined
+                ? "Already joined"
+                : isJoining
+                    ? "Joining..."
+                    : isPending
+                        ? "Checking..."
+                        : "Join Event"}
             <ArrowUpRight size={19} />
         </button>
     )
