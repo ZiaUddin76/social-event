@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import type { JoinedEvent } from "@/types/event"
 import Link from "next/link"
+import { getTokenFromClient } from "@/lib/GetTokenFromClient"
 
 
 
@@ -17,8 +18,14 @@ export default function JoinedEventsPage() {
 
     useEffect(() => {
         const fetchJoinedEvents = async () => {
+
+            const token = await getTokenFromClient()
+
             try {
                 const res = await fetch("http://localhost:8000/joined-events", {
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    },
                     credentials: "include",
                 })
 

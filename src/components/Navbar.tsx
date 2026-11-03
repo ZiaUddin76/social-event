@@ -46,6 +46,10 @@ const Navbar = () => {
 
     const { data: session, isPending } = authClient.useSession()
 
+
+    // console.log("Session:", session)
+    // console.log("Session pending:", isPending)
+
     const user = session?.user
 
     const handleLogout = async () => {

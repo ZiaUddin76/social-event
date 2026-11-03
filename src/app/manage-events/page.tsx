@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import type { DatabaseEvent } from "@/types/event"
+import { getTokenFromClient } from "@/lib/GetTokenFromClient"
 
 type EventFormData = Pick<
     DatabaseEvent,
@@ -21,6 +22,16 @@ type EventFormData = Pick<
 >
 
 const API_URL = "http://localhost:8000"
+
+const eventTypes = [
+    "Cleanup",
+    "Plantation",
+    "Donation",
+    "Awareness",
+    "Community Service",
+    "Education",
+    "Other",
+]
 
 const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("en-US", {
@@ -32,6 +43,30 @@ const formatDate = (date: string) => {
 
 const getDateInputValue = (date: string) => {
     return date.slice(0, 10)
+}
+
+// Get tomorrow's date for the date input and validation.
+const getTomorrowDate = () => {
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    const year = tomorrow.getFullYear()
+    const month = String(tomorrow.getMonth() + 1).padStart(2, "0")
+    const day = String(tomorrow.getDate()).padStart(2, "0")
+
+    return `${year}-${month}-${day}`
+}
+
+// Check whether the URL actually loads an image.
+const validateImageUrl = (url: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+        const img = new Image()
+
+        img.onload = () => resolve(true)
+        img.onerror = () => resolve(false)
+
+        img.src = url
+    })
 }
 
 export default function ManageEventsPage() {
@@ -51,14 +86,22 @@ export default function ManageEventsPage() {
         eventDate: "",
     })
 
+
+
     // Fetch the user's events
     useEffect(() => {
         const fetchMyEvents = async () => {
+
+            const token = await getTokenFromClient()
+
             try {
                 setLoading(true)
                 setError("")
 
                 const res = await fetch(`${API_URL}/my-events`, {
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    },
                     credentials: "include",
                 })
 
@@ -98,7 +141,9 @@ export default function ManageEventsPage() {
 
     // Update form fields
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+        e: React.ChangeEvent<
+            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
     ) => {
         const { name, value } = e.target
 
@@ -114,8 +159,105 @@ export default function ManageEventsPage() {
 
         if (!selectedEvent) return
 
+        // Validate title
+        const title = formData.title.trim()
+
+        if (!title) {
+            toast.error("Please enter an event title.")
+            return
+        }
+
+        if (title.length < 5 || title.length > 100) {
+            toast.error("Title must be between 5 and 100 characters.")
+            return
+        }
+
+        // Validate event type
+        if (!eventTypes.includes(formData.eventType)) {
+            toast.error("Please select a valid event type.")
+            return
+        }
+
+        // Validate description
+        const description = formData.description.trim()
+
+        if (!description) {
+            toast.error("Please enter an event description.")
+            return
+        }
+
+        if (description.length < 20 || description.length > 1000) {
+            toast.error(
+                "Description must be between 20 and 1000 characters."
+            )
+            return
+        }
+
+        // Validate location
+        const location = formData.location.trim()
+
+        if (!location) {
+            toast.error("Please enter an event location.")
+            return
+        }
+
+        if (location.length < 3 || location.length > 150) {
+            toast.error("Location must be between 3 and 150 characters.")
+            return
+        }
+
+        // Validate image URL
+        const image = formData.image.trim()
+
+        if (!image) {
+            toast.error("Please enter an image URL.")
+            return
+        }
+
+        try {
+            const imageUrl = new URL(image)
+
+            if (
+                imageUrl.protocol !== "http:" &&
+                imageUrl.protocol !== "https:"
+            ) {
+                throw new Error("Invalid image URL")
+            }
+        } catch {
+            toast.error("Please enter a valid image URL.")
+            return
+        }
+
+        // Check whether the URL actually loads an image
+        const isValidImage = await validateImageUrl(image)
+
+        if (!isValidImage) {
+            toast.error("This URL does not load a valid image.")
+            return
+        }
+
+        // Validate event date
+        const minimumDate = getTomorrowDate()
+
+        if (!formData.eventDate || formData.eventDate < minimumDate) {
+            toast.error("Please select a valid future event date.")
+            return
+        }
+
+        // Prepare validated event data
+        const updatedData: EventFormData = {
+            title,
+            eventType: formData.eventType,
+            description,
+            image,
+            location,
+            eventDate: formData.eventDate,
+        }
+
         try {
             setUpdating(true)
+
+            const token = await getTokenFromClient()
 
             const res = await fetch(
                 `${API_URL}/update-event/${selectedEvent._id}`,
@@ -123,9 +265,10 @@ export default function ManageEventsPage() {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`
                     },
                     credentials: "include",
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify(updatedData),
                 }
             )
 
@@ -139,7 +282,7 @@ export default function ManageEventsPage() {
                 prev
                     .map((event) =>
                         event._id === selectedEvent._id
-                            ? { ...event, ...formData }
+                            ? { ...event, ...updatedData }
                             : event
                     )
                     .sort(
@@ -173,8 +316,13 @@ export default function ManageEventsPage() {
         try {
             setDeletingId(id)
 
+            const token = await getTokenFromClient()
+
             const res = await fetch(`${API_URL}/delete-event/${id}`, {
                 method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
                 credentials: "include",
             })
 
@@ -390,6 +538,7 @@ export default function ManageEventsPage() {
                         {/* Edit Form */}
                         <form onSubmit={handleUpdate} className="space-y-5 p-6">
 
+                            {/* Event Title */}
                             <div>
                                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                                     Event Title
@@ -400,11 +549,18 @@ export default function ManageEventsPage() {
                                     name="title"
                                     value={formData.title}
                                     onChange={handleChange}
+                                    minLength={5}
+                                    maxLength={100}
                                     required
                                     className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-red-100"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    5–100 characters.
+                                </p>
                             </div>
 
+                            {/* Event Type */}
                             <div>
                                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                                     Event Type
@@ -418,14 +574,16 @@ export default function ManageEventsPage() {
                                     className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-[#bd2929] focus:ring-2 focus:ring-red-100"
                                 >
                                     <option value="">Select event type</option>
-                                    <option value="Cleanup">Cleanup</option>
-                                    <option value="Plantation">Plantation</option>
-                                    <option value="Donation">Donation</option>
-                                    <option value="Awareness">Awareness</option>
-                                    <option value="Community Support">Community Support</option>
+
+                                    {eventTypes.map((type) => (
+                                        <option key={type} value={type}>
+                                            {type}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
 
+                            {/* Event Image URL */}
                             <div>
                                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                                     Event Image URL
@@ -441,6 +599,7 @@ export default function ManageEventsPage() {
                                 />
                             </div>
 
+                            {/* Location */}
                             <div>
                                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                                     Location
@@ -451,11 +610,18 @@ export default function ManageEventsPage() {
                                     name="location"
                                     value={formData.location}
                                     onChange={handleChange}
+                                    minLength={3}
+                                    maxLength={150}
                                     required
                                     className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#bd2929] focus:ring-2 focus:ring-red-100"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    3–150 characters.
+                                </p>
                             </div>
 
+                            {/* Event Date */}
                             <div>
                                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                                     Event Date
@@ -466,11 +632,17 @@ export default function ManageEventsPage() {
                                     name="eventDate"
                                     value={formData.eventDate}
                                     onChange={handleChange}
+                                    min={getTomorrowDate()}
                                     required
                                     className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#bd2929] focus:ring-2 focus:ring-red-100"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    Events must be scheduled for a future date.
+                                </p>
                             </div>
 
+                            {/* Description */}
                             <div>
                                 <label className="mb-2 block text-sm font-semibold text-gray-700">
                                     Description
@@ -480,10 +652,16 @@ export default function ManageEventsPage() {
                                     name="description"
                                     value={formData.description}
                                     onChange={handleChange}
+                                    minLength={20}
+                                    maxLength={1000}
                                     required
                                     rows={4}
                                     className="w-full resize-y rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#bd2929] focus:ring-2 focus:ring-red-100"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    20–1000 characters.
+                                </p>
                             </div>
 
                             {/* Form Actions */}

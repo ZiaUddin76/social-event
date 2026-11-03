@@ -17,6 +17,8 @@ import {
 
 import type { DatabaseEvent } from "@/types/event"
 import JoinEventButton from "@/components/events/JoinEventButton"
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers"
 
 
 
@@ -53,25 +55,28 @@ export default async function EventDetailsPage({
 
   const { id } = await params
 
+
+
   const res = await fetch(
     `http://localhost:8000/event/${encodeURIComponent(id)}`,
     {
       cache: "no-store",
     }
-  )
+  );
+
+  console.log("Event API status:", res.status)
+  console.log("Event API status text:", res.statusText)
 
   if (!res.ok) {
+    const errorDetails = await res.text()
+
+    console.error("Event API error:", errorDetails)
+
     if (res.status === 404) {
       notFound()
     }
 
     throw new Error("Failed to fetch event")
-  }
-
-  const event: DatabaseEvent | null = await res.json()
-
-  if (!event) {
-    notFound()
   }
 
   const eventDate = formatShortDate(event.eventDate)
@@ -288,7 +293,7 @@ export default async function EventDetailsPage({
                   </p>
 
                   <JoinEventButton eventId={event._id} />
-                  
+
 
                   <p className="mt-3 text-center text-xs text-[#a49a93]">
                     Login will be required to participate.

@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, type FormEvent } from "react"
@@ -13,8 +14,8 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import type { Event } from "@/types/event"
-
-
+import { authClient } from "@/lib/auth-client"
+import { getTokenFromClient } from "@/lib/GetTokenFromClient"
 
 const eventTypes = [
     "Cleanup",
@@ -64,6 +65,7 @@ export default function CreateEventPage() {
         }))
     }
 
+    // Check whether the URL actually loads an image.
     const validateImageUrl = (url: string): Promise<boolean> => {
         return new Promise((resolve) => {
             const img = new Image()
@@ -75,31 +77,73 @@ export default function CreateEventPage() {
         })
     }
 
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+
+        const token = await getTokenFromClient()
+
+
+        // console.log(data)
+
+
         // Validate title
-        if (!formData.title.trim()) {
+        const title = formData.title.trim()
+
+        if (!title) {
             toast.error("Please enter an event title.")
             return
         }
 
+        if (title.length < 5 || title.length > 100) {
+            toast.error("Title must be between 5 and 100 characters.")
+            return
+        }
+
+        // Validate event type
+        if (!eventTypes.includes(formData.eventType)) {
+            toast.error("Please select a valid event type.")
+            return
+        }
+
         // Validate description
-        if (!formData.description.trim()) {
+        const description = formData.description.trim()
+
+        if (!description) {
             toast.error("Please enter an event description.")
             return
         }
 
+        if (description.length < 20 || description.length > 1000) {
+            toast.error(
+                "Description must be between 20 and 1000 characters."
+            )
+            return
+        }
+
         // Validate location
-        if (!formData.location.trim()) {
+        const location = formData.location.trim()
+
+        if (!location) {
             toast.error("Please enter an event location.")
             return
         }
 
+        if (location.length < 3 || location.length > 150) {
+            toast.error("Location must be between 3 and 150 characters.")
+            return
+        }
+
         // Validate image URL
+        const image = formData.image.trim()
+
+        if (!image) {
+            toast.error("Please enter an image URL.")
+            return
+        }
+
         try {
-            const imageUrl = new URL(formData.image)
+            const imageUrl = new URL(image)
 
             if (
                 imageUrl.protocol !== "http:" &&
@@ -113,7 +157,7 @@ export default function CreateEventPage() {
         }
 
         // Check whether the URL actually loads an image
-        const isValidImage = await validateImageUrl(formData.image)
+        const isValidImage = await validateImageUrl(image)
 
         if (!isValidImage) {
             toast.error("This URL does not load a valid image.")
@@ -121,7 +165,16 @@ export default function CreateEventPage() {
         }
 
         // Validate event date
-        if (!formData.eventDate || formData.eventDate < minEventDate) {
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        const year = tomorrow.getFullYear()
+        const month = String(tomorrow.getMonth() + 1).padStart(2, "0")
+        const day = String(tomorrow.getDate()).padStart(2, "0")
+
+        const minimumDate = `${year}-${month}-${day}`
+
+        if (!formData.eventDate || formData.eventDate < minimumDate) {
             toast.error("Please select a valid future event date.")
             return
         }
@@ -129,22 +182,36 @@ export default function CreateEventPage() {
         setIsSubmitting(true)
 
         try {
+            // Prepare trimmed event data
+            const eventData: Event = {
+                title,
+                eventType: formData.eventType,
+                description,
+                image,
+                location,
+                eventDate: formData.eventDate,
+            }
+
             // Send event data to backend
             const res = await fetch("http://localhost:8000/create-event", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`
                 },
                 credentials: "include",
-                body: JSON.stringify(formData),
+                body: JSON.stringify(eventData),
             })
 
+            const data = await res.json()
+
             if (!res.ok) {
-                throw new Error("Failed to create event")
+                throw new Error(data.message || "Failed to create event")
             }
 
-            const data = await res.json()
             console.log(data)
+
+
 
             toast.success("Event created successfully!")
 
@@ -160,7 +227,12 @@ export default function CreateEventPage() {
 
         } catch (error) {
             console.error(error)
-            toast.error("Something went wrong. Please try again.")
+
+            if (error instanceof Error) {
+                toast.error(error.message)
+            } else {
+                toast.error("Something went wrong. Please try again.")
+            }
         } finally {
             setIsSubmitting(false)
         }
@@ -206,9 +278,15 @@ export default function CreateEventPage() {
                                     value={formData.title}
                                     onChange={handleChange}
                                     placeholder="e.g. Community Cleaning Day"
+                                    minLength={5}
+                                    maxLength={100}
                                     required
                                     className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    5–100 characters.
+                                </p>
                             </div>
 
                             {/* Event Type */}
@@ -258,9 +336,15 @@ export default function CreateEventPage() {
                                     onChange={handleChange}
                                     placeholder="Tell people what this event is about..."
                                     rows={5}
+                                    minLength={20}
+                                    maxLength={1000}
                                     required
                                     className="w-full resize-none rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    20–1000 characters.
+                                </p>
                             </div>
 
                             {/* Image URL */}
@@ -303,7 +387,6 @@ export default function CreateEventPage() {
                                         />
                                     </div>
                                 )}
-
                             </div>
 
                             {/* Location */}
@@ -323,9 +406,15 @@ export default function CreateEventPage() {
                                     value={formData.location}
                                     onChange={handleChange}
                                     placeholder="Enter event location"
+                                    minLength={3}
+                                    maxLength={150}
                                     required
                                     className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
                                 />
+
+                                <p className="mt-1 text-xs text-gray-500">
+                                    3–150 characters.
+                                </p>
                             </div>
 
                             {/* Event Date */}

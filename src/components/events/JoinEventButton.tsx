@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { authClient } from "@/lib/auth-client"
+import { getTokenFromClient } from "@/lib/GetTokenFromClient"
 import { ArrowUpRight } from "lucide-react"
 
 const EVENT_SERVER_URL = "http://localhost:8000"
@@ -21,18 +22,29 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
 
     // Check with the backend if the logged in user has already joined this event.
     useEffect(() => {
+        const checkJoined = async () => {
+            const token = await getTokenFromClient()
+
+            const res = await fetch(
+                `${EVENT_SERVER_URL}/event/${eventId}/joined`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                    credentials: "include",
+                }
+            )
+
+            const data = await res.json().catch(() => null)
+
+            if (data?.joined) {
+                setHasJoined(true)
+            }
+        }
+
         if (isPending || !session) return
 
-        fetch(`${EVENT_SERVER_URL}/event/${eventId}/joined`, {
-            credentials: "include",
-        })
-            .then((res) => (res.ok ? res.json() : null))
-            .then((data) => {
-                if (data?.joined) {
-                    setHasJoined(true)
-                }
-            })
-            .catch(() => {})
+        checkJoined().catch(() => {})
     }, [eventId, isPending, session])
 
     const redirectToLogin = () => {
@@ -49,11 +61,14 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
         try {
             setIsJoining(true)
 
+            const token = await getTokenFromClient()
+
             const res = await fetch(`${EVENT_SERVER_URL}/join-event`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ eventId }),
             })
