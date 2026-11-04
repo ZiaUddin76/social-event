@@ -22,7 +22,7 @@ export default function JoinedEventsPage() {
             const token = await getTokenFromClient()
 
             try {
-                const res = await fetch("http://localhost:8000/joined-events", {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/joined-events`, {
                     headers: {
                         authorization: `Bearer ${token}`
                     },

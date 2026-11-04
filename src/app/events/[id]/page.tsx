@@ -58,7 +58,7 @@ export default async function EventDetailsPage({
 
 
   const res = await fetch(
-    `http://localhost:8000/event/${encodeURIComponent(id)}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/event/${encodeURIComponent(id)}`,
     {
       cache: "no-store",
     }

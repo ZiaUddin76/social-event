@@ -7,7 +7,7 @@ import { authClient } from "@/lib/auth-client"
 import { getTokenFromClient } from "@/lib/GetTokenFromClient"
 import { ArrowUpRight } from "lucide-react"
 
-const EVENT_SERVER_URL = "http://localhost:8000"
+const EVENT_SERVER_URL = process.env.NEXT_PUBLIC_API_URL
 
 type JoinEventButtonProps = {
     eventId: string

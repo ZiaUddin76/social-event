@@ -34,7 +34,7 @@ const formatDate = (date: string) => {
 export default async function UpcomingEventsPage() {
   await connection()
 
-  const res = await fetch("http://localhost:8000/events", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`, {
     cache: "no-store",
   })
 
