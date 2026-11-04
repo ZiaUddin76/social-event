@@ -412,7 +412,7 @@ export default function ManageEventsPage() {
                         </h2>
 
                         <p className="mt-2 text-gray-500">
-                            You haven't created any events yet.
+                            You haven&apos;t created any events yet.
                         </p>
 
                         <a

@@ -62,7 +62,7 @@ export default function JoinedEventsPage() {
                     </h1>
 
                     <p className="text-gray-500 mt-2">
-                        Events you've joined and are looking forward to.
+                        Events you&apos;ve joined and are looking forward to.
                     </p>
                 </div>
 
@@ -90,7 +90,7 @@ export default function JoinedEventsPage() {
                         </h2>
 
                         <p className="text-gray-500 mt-2">
-                            You haven't joined any events. Explore upcoming events and get involved!
+                            You haven&apos;t joined any events. Explore upcoming events and get involved!
                         </p>
                     </div>
                 )}

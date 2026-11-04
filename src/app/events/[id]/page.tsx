@@ -79,6 +79,8 @@ export default async function EventDetailsPage({
     throw new Error("Failed to fetch event")
   }
 
+  const event: DatabaseEvent = await res.json()
+
   const eventDate = formatShortDate(event.eventDate)
 
   return (
