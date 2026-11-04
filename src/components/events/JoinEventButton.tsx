@@ -25,6 +25,8 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
         const checkJoined = async () => {
             const token = await getTokenFromClient()
 
+            if (!token) return
+
             const res = await fetch(
                 `${EVENT_SERVER_URL}/event/${eventId}/joined`,
                 {
@@ -62,6 +64,12 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
             setIsJoining(true)
 
             const token = await getTokenFromClient()
+
+            if (!token) {
+                toast.info("Please log in to join this event.")
+                redirectToLogin()
+                return
+            }
 
             const res = await fetch(`${EVENT_SERVER_URL}/join-event`, {
                 method: "POST",

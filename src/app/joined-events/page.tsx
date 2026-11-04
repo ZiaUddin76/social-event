@@ -21,6 +21,12 @@ export default function JoinedEventsPage() {
 
             const token = await getTokenFromClient()
 
+            if (!token) {
+                setError("Your session has expired. Please log in again.")
+                setLoading(false)
+                return
+            }
+
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/joined-events`, {
                     headers: {

@@ -94,6 +94,12 @@ export default function ManageEventsPage() {
 
             const token = await getTokenFromClient()
 
+            if (!token) {
+                setError("Your session has expired. Please log in again.")
+                setLoading(false)
+                return
+            }
+
             try {
                 setLoading(true)
                 setError("")
@@ -259,6 +265,11 @@ export default function ManageEventsPage() {
 
             const token = await getTokenFromClient()
 
+            if (!token) {
+                toast.error("Your session has expired. Please log in again.")
+                return
+            }
+
             const res = await fetch(
                 `${API_URL}/update-event/${selectedEvent._id}`,
                 {
@@ -317,6 +328,11 @@ export default function ManageEventsPage() {
             setDeletingId(id)
 
             const token = await getTokenFromClient()
+
+            if (!token) {
+                toast.error("Your session has expired. Please log in again.")
+                return
+            }
 
             const res = await fetch(`${API_URL}/delete-event/${id}`, {
                 method: "DELETE",

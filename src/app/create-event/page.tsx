@@ -83,9 +83,10 @@ export default function CreateEventPage() {
 
         const token = await getTokenFromClient()
 
-
-        // console.log(data)
-
+        if (!token) {
+            toast.error("Your session has expired. Please log in again.")
+            return
+        }
 
         // Validate title
         const title = formData.title.trim()
