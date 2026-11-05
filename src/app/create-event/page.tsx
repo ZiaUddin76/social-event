@@ -253,7 +253,7 @@ export default function CreateEventPage() {
                 <div className="grid gap-8 lg:grid-cols-[1fr_350px]">
                     {/* Event Form */}
                     <div className="animate-fade-up rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[#bd2929]/5 dark:border-border dark:bg-card md:p-8 [animation-delay:120ms]">
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} autoComplete="off" className="space-y-6">
                             {/* Event Title */}
                             <div>
                                 <label
