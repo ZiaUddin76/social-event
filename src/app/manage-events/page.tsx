@@ -361,7 +361,7 @@ export default function ManageEventsPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#faf8f6] px-4 py-12 dark:bg-background sm:px-6 lg:px-8">
+        <main className="animate-fade-in min-h-screen bg-[#faf8f6] px-4 py-12 dark:bg-background sm:px-6 lg:px-8">
             <div className="mx-auto max-w-6xl">
 
                 {/* Page Header */}
@@ -441,18 +441,19 @@ export default function ManageEventsPage() {
                 {/* Events Grid */}
                 {!loading && !error && events.length > 0 && (
                     <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-                        {events.map((event) => (
+                        {events.map((event, index) => (
                             <article
                                 key={event._id}
-                                className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-border dark:bg-card"
+                                style={{ animationDelay: `${index * 80}ms` }}
+                                className="reveal group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#bd2929]/40 hover:shadow-lg hover:shadow-[#bd2929]/10 dark:border-border dark:bg-card dark:hover:border-[#bd2929]/50"
                             >
                                 {/* Event Image */}
-                                <div className="relative h-52 bg-gray-100 dark:bg-muted">
+                                <div className="relative h-52 overflow-hidden bg-gray-100 dark:bg-muted">
                                     {event.image ? (
                                         <img
                                             src={event.image}
                                             alt={event.title}
-                                            className="h-full w-full object-cover"
+                                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
                                     ) : (
                                         <div className="flex h-full items-center justify-center">
@@ -460,7 +461,7 @@ export default function ManageEventsPage() {
                                         </div>
                                     )}
 
-                                    <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#bd2929] shadow dark:bg-card">
+                                    <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-[#bd2929] shadow backdrop-blur-sm transition-transform duration-300 group-hover:scale-105 dark:bg-card/90">
                                         {event.eventType}
                                     </span>
                                 </div>
@@ -524,8 +525,8 @@ export default function ManageEventsPage() {
 
             {/* Edit Event Modal */}
             {selectedEvent && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-4">
-                    <div className="my-8 w-full max-w-2xl rounded-2xl bg-white shadow-2xl dark:border dark:border-border dark:bg-card">
+                <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-4 backdrop-blur-sm">
+                    <div className="animate-zoom-in my-8 w-full max-w-2xl rounded-2xl bg-white shadow-2xl dark:border dark:border-border dark:bg-card">
 
                         {/* Modal Header */}
                         <div className="flex items-center justify-between border-b border-gray-100 p-6 dark:border-border">

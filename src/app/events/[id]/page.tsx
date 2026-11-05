@@ -128,7 +128,7 @@ export default async function EventDetailsPage({
             </div>
 
             {/* Event description */}
-            <div className="mt-8 rounded-3xl border border-[#eee5df] bg-white p-6 shadow-sm dark:border-border dark:bg-card sm:p-9">
+            <div className="reveal mt-8 rounded-3xl border border-[#eee5df] bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#bd2929]/40 hover:shadow-lg hover:shadow-[#bd2929]/10 dark:border-border dark:bg-card dark:hover:border-[#bd2929]/50 sm:p-9">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#bd2929]/10 text-[#bd2929]">
                   <HandHeart size={23} />
@@ -166,7 +166,7 @@ export default async function EventDetailsPage({
             </div>
 
             {/* Community message */}
-            <div className="relative mt-8 overflow-hidden rounded-3xl bg-[#bd2929] p-7 text-white sm:p-9">
+            <div className="reveal relative mt-8 overflow-hidden rounded-3xl bg-[#bd2929] p-7 text-white shadow-lg shadow-[#bd2929]/25 sm:p-9">
               <div className="relative z-10 max-w-xl">
                 <div className="mb-4 flex items-center gap-2 text-white/80">
                   <Leaf size={19} />
@@ -191,7 +191,7 @@ export default async function EventDetailsPage({
           </div>
 
           {/* Right: Event information and join panel */}
-          <aside className="lg:sticky lg:top-8">
+          <aside className="reveal lg:sticky lg:top-8" style={{ animationDelay: "120ms" }}>
             <div className="overflow-hidden rounded-3xl border border-[#eee5df] bg-white shadow-sm dark:border-border dark:bg-card">
               {/* Date header */}
               <div className="flex items-center justify-between bg-[#bd2929] px-6 py-5 text-white">
@@ -228,8 +228,8 @@ export default async function EventDetailsPage({
                 </div>
 
                 {/* Location */}
-                <div className="mt-6 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#bd2929]/10 text-[#bd2929]">
+                <div className="mt-6 flex items-start gap-4 transition-transform duration-300 hover:translate-x-1">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#bd2929]/10 text-[#bd2929] transition-colors duration-300 hover:bg-[#bd2929] hover:text-white">
                     <MapPin size={21} />
                   </div>
 
@@ -244,8 +244,8 @@ export default async function EventDetailsPage({
                 </div>
 
                 {/* Event type */}
-                <div className="mt-6 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#bd2929]/10 text-[#bd2929]">
+                <div className="mt-6 flex items-start gap-4 transition-transform duration-300 hover:translate-x-1">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#bd2929]/10 text-[#bd2929] transition-colors duration-300 hover:bg-[#bd2929] hover:text-white">
                     <Sparkles size={21} />
                   </div>
 
@@ -260,8 +260,8 @@ export default async function EventDetailsPage({
                 </div>
 
                 {/* Organizer */}
-                <div className="mt-6 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#bd2929]/10 text-[#bd2929]">
+                <div className="mt-6 flex items-start gap-4 transition-transform duration-300 hover:translate-x-1">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#bd2929]/10 text-[#bd2929] transition-colors duration-300 hover:bg-[#bd2929] hover:text-white">
                     <Users size={21} />
                   </div>
 

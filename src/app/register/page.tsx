@@ -74,12 +74,12 @@ const RegisterPage = () => {
 
     return (
         <main className="min-h-[calc(100vh-80px)] bg-[#faf8f5] px-4 py-10 dark:bg-background sm:px-6 lg:px-8">
-            <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl shadow-[#4b1717]/10 dark:bg-card lg:min-h-[680px] lg:grid-cols-2">
+            <div className="animate-fade-up mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl shadow-[#4b1717]/10 dark:bg-card lg:min-h-[680px] lg:grid-cols-2">
 
                 {/* Left Side - Community Introduction */}
                 <section className="relative flex flex-col justify-between overflow-hidden bg-[#bd2929] p-8 text-white sm:p-12 lg:p-14">
                     <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border-[45px] border-white/10" />
-                    <div className="absolute -bottom-28 -left-20 h-80 w-80 rounded-full border-[50px] border-white/10" />
+                    <div className="absolute -bottom-28 -left-20 h-80 w-80 rounded-full border-[50px] border-white/10 animate-float-slow" />
 
                     <div className="relative z-10">
                         <div className="mb-12 flex items-center gap-3">
@@ -249,7 +249,7 @@ const RegisterPage = () => {
                             <button
                                 type="submit"
                                 disabled={isPending}
-                                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-3.5 font-semibold text-white shadow-lg shadow-[#bd2929]/20 transition hover:bg-[#a82020] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+                                className="btn-shine group flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-3.5 font-semibold text-white shadow-lg shadow-[#bd2929]/20 transition hover:bg-[#a82020] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
                             >
                                 {isPending ? "Creating Account..." : "Create Account"}
 

@@ -5,21 +5,21 @@ const Newsletter = () => {
         <section className="bg-[#f8f6f4] py-20 dark:bg-background">
             <div className="mx-auto max-w-6xl px-4">
 
-                <div className="relative overflow-hidden rounded-3xl bg-white px-6 py-14 shadow-sm dark:border dark:border-border dark:bg-card sm:px-12 md:px-20">
+                <div className="reveal relative overflow-hidden rounded-3xl bg-white px-6 py-14 shadow-sm transition-all duration-300 hover:shadow-lg dark:border dark:border-border dark:bg-card sm:px-12 md:px-20">
 
                     {/* Decorative background shapes */}
-                    <div className="absolute -left-16 -top-16 size-48 rounded-full bg-[#bd2929]/5" />
-                    <div className="absolute -bottom-20 -right-20 size-64 rounded-full bg-[#bd2929]/5" />
+                    <div className="pointer-events-none absolute -left-16 -top-16 size-48 rounded-full bg-[#bd2929]/5 animate-float dark:bg-[#bd2929]/15" />
+                    <div className="pointer-events-none absolute -bottom-20 -right-20 size-64 rounded-full bg-[#bd2929]/5 animate-float-slow dark:bg-[#bd2929]/15" />
 
                     <div className="relative mx-auto max-w-3xl text-center">
 
                         {/* Small icon */}
-                        <div className="mx-auto mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#bd2929]/10 text-[#bd2929]">
+                        <div className="mx-auto mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#bd2929]/10 text-[#bd2929] transition-transform duration-300 hover:rotate-6 hover:scale-110 hover:shadow-lg hover:shadow-[#bd2929]/30">
                             <MailIcon className="size-7" />
                         </div>
 
                         <div className="flex items-center justify-center gap-2">
-                            <HeartIcon className="size-4 fill-[#bd2929] text-[#bd2929]" />
+                            <HeartIcon className="size-4 fill-[#bd2929] text-[#bd2929] animate-pulse-glow" />
                             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#bd2929]">
                                 Stay Connected
                             </p>
@@ -52,7 +52,7 @@ const Newsletter = () => {
 
                             <button
                                 type="button"
-                                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#9f2222]"
+                                className="btn-shine inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-6 py-3 font-semibold text-white shadow-lg shadow-[#bd2929]/25 transition hover:-translate-y-0.5 hover:bg-[#9f2222] active:translate-y-0 active:scale-[0.97]"
                             >
                                 Join Us
                                 <ArrowRightIcon className="size-4" />

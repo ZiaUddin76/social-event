@@ -214,9 +214,9 @@ export default function CreateEventPage() {
 
             console.log(data)
 
-            toast.success("Event created successfully!")
-
-            router.push("/upcoming-events")
+            // Redirect to the events page; the success toast is shown there
+            // by EventCreatedToast (same pattern as the login success toast).
+            router.push("/upcoming-events?created=success")
 
         } catch (error) {
             console.error(error)
@@ -235,7 +235,7 @@ export default function CreateEventPage() {
         <main className="min-h-screen bg-[#faf8f5] px-4 py-12 dark:bg-background">
             <div className="mx-auto max-w-6xl">
                 {/* Page Heading */}
-                <div className="mb-10 text-center">
+                <div className="animate-fade-up mb-10 text-center">
                     <span className="mb-3 inline-block rounded-full bg-[#bd2929]/10 px-4 py-2 text-sm font-semibold text-[#bd2929]">
                         Make a Difference
                     </span>
@@ -252,7 +252,7 @@ export default function CreateEventPage() {
 
                 <div className="grid gap-8 lg:grid-cols-[1fr_350px]">
                     {/* Event Form */}
-                    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-border dark:bg-card md:p-8">
+                    <div className="animate-fade-up rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[#bd2929]/5 dark:border-border dark:bg-card md:p-8 [animation-delay:120ms]">
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Event Title */}
                             <div>
@@ -441,7 +441,7 @@ export default function CreateEventPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#bd2929] px-6 py-3.5 font-semibold text-white transition hover:bg-[#a92121] disabled:cursor-not-allowed disabled:opacity-60"
+                                className="btn-shine flex w-full items-center justify-center gap-2 rounded-lg bg-[#bd2929] px-6 py-3.5 font-semibold text-white shadow-lg shadow-[#bd2929]/20 transition hover:bg-[#a92121] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
                             >
                                 {isSubmitting ? "Creating Event..." : "Create Event"}
 
@@ -451,8 +451,8 @@ export default function CreateEventPage() {
                     </div>
 
                     {/* Side Information */}
-                    <aside className="h-fit rounded-2xl bg-[#bd2929] p-7 text-white">
-                        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-white/15">
+                    <aside className="animate-fade-up h-fit rounded-2xl bg-[#bd2929] p-7 text-white shadow-lg shadow-[#bd2929]/25 [animation-delay:220ms]">
+                        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-white/15 animate-float">
                             <HeartHandshake size={30} />
                         </div>
 

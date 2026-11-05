@@ -27,7 +27,7 @@ const Footer = () => {
                             <a
                                 href="#"
                                 aria-label="Facebook"
-                                className="flex size-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#bd2929]"
+                                className="flex size-9 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-[#bd2929] hover:shadow-lg hover:shadow-[#bd2929]/40"
                             >
                                 <FaFacebookF className="size-4" />
                             </a>
@@ -35,7 +35,7 @@ const Footer = () => {
                             <a
                                 href="#"
                                 aria-label="Instagram"
-                                className="flex size-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#bd2929]"
+                                className="flex size-9 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-[#bd2929] hover:shadow-lg hover:shadow-[#bd2929]/40"
                             >
                                 <FaInstagram className="size-4" />
                             </a>
@@ -43,7 +43,7 @@ const Footer = () => {
                             <a
                                 href="#"
                                 aria-label="Twitter"
-                                className="flex size-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#bd2929]"
+                                className="flex size-9 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-[#bd2929] hover:shadow-lg hover:shadow-[#bd2929]/40"
                             >
                                 <FaXTwitter className="size-4" />
                             </a>

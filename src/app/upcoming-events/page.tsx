@@ -10,6 +10,7 @@ import {
 } from "lucide-react"
 
 import type { DatabaseEvent } from "@/types/event"
+import EventCreatedToast from "@/components/EventCreatedToast"
 
 export const instant = false
 
@@ -50,10 +51,12 @@ export default async function UpcomingEventsPage() {
 
   return (
     <main className="flex-1 bg-[#faf8f5] dark:bg-background">
+      <EventCreatedToast />
+
       {/* Intro section */}
       <section className="relative overflow-hidden border-b border-[#eadfd7] dark:border-border">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-          <div className="max-w-3xl">
+          <div className="reveal max-w-3xl">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#e8c9c5] bg-white px-4 py-2 text-sm font-medium text-[#bd2929] dark:border-border dark:bg-card">
               <Sparkles size={16} />
               Discover opportunities to make a difference
@@ -89,7 +92,7 @@ export default async function UpcomingEventsPage() {
 
       {/* Events section */}
       <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div className="reveal mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-[#bd2929]">
               Find your next opportunity
@@ -110,12 +113,12 @@ export default async function UpcomingEventsPage() {
           </div>
         </div>
 
-        {upcomingEvents.length > 0 ? (
-          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {upcomingEvents.map((event) => (
+        {upcomingEvents.length > 0 ? (          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+            {upcomingEvents.map((event, index) => (
               <article
                 key={event._id}
-                className="group overflow-hidden rounded-2xl border border-[#eee5df] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-border dark:bg-card"
+                style={{ animationDelay: `${index * 80}ms` }}
+                className="reveal group overflow-hidden rounded-2xl border border-[#eee5df] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#bd2929]/40 hover:shadow-xl hover:shadow-[#bd2929]/10 dark:border-border dark:bg-card dark:hover:border-[#bd2929]/50 dark:hover:shadow-[#bd2929]/5"
               >
                 {/* Thumbnail */}
                 <div className="relative h-56 overflow-hidden">
@@ -127,7 +130,7 @@ export default async function UpcomingEventsPage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
 
-                  <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-[#bd2929] shadow-sm">
+                  <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-[#bd2929] shadow-sm backdrop-blur-sm transition-transform duration-300 group-hover:scale-105 dark:bg-card/90">
                     {event.eventType}
                   </span>
                 </div>
@@ -154,7 +157,7 @@ export default async function UpcomingEventsPage() {
 
                   <Link
                     href={`/events/${event._id}`}
-                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#9e2020]"
+                    className="btn-shine mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#9e2020] active:scale-[0.98]"
                   >
                     View Event
                     <ArrowUpRight size={17} />

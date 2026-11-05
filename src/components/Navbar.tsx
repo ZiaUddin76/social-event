@@ -79,19 +79,22 @@ const Navbar = () => {
     }
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-[#bd2929] text-white">
+        <header className="sticky top-0 z-50 w-full bg-[#bd2929] text-white shadow-lg shadow-black/10 dark:bg-[#a91f1f] dark:shadow-black/30">
             <nav>
                 <div className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
 
                     {/* Logo */}
-                    <Link href="/" className="shrink-0 text-xl font-bold">
+                    <Link
+                        href="/"
+                        className="shrink-0 text-xl font-bold transition-transform duration-300 hover:scale-105"
+                    >
                         Event<span>Hub</span>
                     </Link>
 
                     {/* Desktop & Tablet - Center Navigation */}
                     <Link
                         href="/upcoming-events"
-                        className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm font-medium transition-colors hover:text-rose-200 sm:flex"
+                        className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm font-medium transition-colors hover:text-rose-200 after:absolute after:-bottom-1 after:left-1/2 after:h-0.5 after:-translate-x-1/2 after:rounded-full after:bg-white after:transition-all after:duration-300 hover:after:w-full sm:flex"
                     >
                         <CalendarDaysIcon className="size-4" />
                         <span>Upcoming Events</span>
@@ -110,9 +113,9 @@ const Navbar = () => {
                             className="text-white hover:bg-white/10 hover:text-white"
                         >
                             {mounted && theme === "dark" ? (
-                                <SunIcon className="size-5" />
+                                <SunIcon className="size-5 animate-icon-in" />
                             ) : (
-                                <MoonIcon className="size-5" />
+                                <MoonIcon className="size-5 animate-icon-in" />
                             )}
                         </Button>
 
@@ -120,7 +123,7 @@ const Navbar = () => {
                         {!isPending && !user && (
                             <Link
                                 href="/login"
-                                className="inline-flex items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-rose-700 shadow transition-colors hover:bg-gray-100"
+                                className="inline-flex items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-rose-700 shadow transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 hover:shadow-lg hover:shadow-black/15"
                             >
                                 Login
                             </Link>
@@ -250,12 +253,12 @@ const Navbar = () => {
                                     >
                                         {mounted && theme === "dark" ? (
                                             <>
-                                                <SunIcon className="size-5" />
+                                                <SunIcon className="size-5 animate-icon-in" />
                                                 Switch to Light Mode
                                             </>
                                         ) : (
                                             <>
-                                                <MoonIcon className="size-5" />
+                                                <MoonIcon className="size-5 animate-icon-in" />
                                                 Switch to Dark Mode
                                             </>
                                         )}

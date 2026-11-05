@@ -20,7 +20,7 @@ const page = () => {
 
             <Suspense
                 fallback={
-                    <div className="py-20 text-center text-gray-500">
+                    <div className="py-20 text-center text-gray-500 dark:text-muted-foreground">
                         Loading upcoming events...
                     </div>
                 }

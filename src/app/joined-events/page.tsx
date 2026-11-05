@@ -53,7 +53,7 @@ export default function JoinedEventsPage() {
     }, [])
 
     return (
-        <main className="flex-1 bg-[#f8f8f8] dark:bg-background">
+        <main className="animate-fade-in flex-1 bg-[#faf8f5] dark:bg-background">
             <section className="mx-auto max-w-6xl px-4 py-12">
 
                 <div className="mb-8">
@@ -66,7 +66,7 @@ export default function JoinedEventsPage() {
                     </p>
                 </div>
 
-                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">
+                <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#bd2929] shadow-sm dark:bg-card dark:text-card-foreground">
                     Total Joined Events: {joinedEvents.length}
                 </p>
 
@@ -97,21 +97,24 @@ export default function JoinedEventsPage() {
                 {!loading && !error && joinedEvents.length > 0 && (
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
-                        {joinedEvents.map((event) => (
+                        {joinedEvents.map((event, index) => (
                             <div
                                 key={event._id}
-                                className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-border dark:bg-card"
+                                style={{ animationDelay: `${index * 80}ms` }}
+                                className="reveal group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#bd2929]/40 hover:shadow-xl hover:shadow-[#bd2929]/10 dark:border-border dark:bg-card dark:hover:border-[#bd2929]/50"
                             >
 
-                                <img
-                                    src={event.image}
-                                    alt={event.eventTitle}
-                                    className="h-48 w-full object-cover"
-                                />
+                                <div className="relative h-48 overflow-hidden">
+                                    <img
+                                        src={event.image}
+                                        alt={event.eventTitle}
+                                        className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    />
+                                </div>
 
                                 <div className="p-5">
 
-                                    <span className="text-sm font-medium text-[#bd2929]">
+                                    <span className="inline-block rounded-full bg-[#bd2929]/10 px-3 py-1 text-xs font-semibold text-[#bd2929]">
                                         {event.eventType}
                                     </span>
 
@@ -119,11 +122,11 @@ export default function JoinedEventsPage() {
                                         {event.eventTitle}
                                     </h2>
 
-                                    <p className="mt-3 text-gray-500 dark:text-muted-foreground">
+                                    <p className="mt-3 flex items-center gap-2 text-sm text-gray-500 dark:text-muted-foreground">
                                         {event.location}
                                     </p>
 
-                                    <p className="mt-2 text-gray-500 dark:text-muted-foreground">
+                                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-muted-foreground">
                                         {new Date(`${event.eventDate}T00:00:00`).toLocaleDateString("en-US", {
                                             year: "numeric",
                                             month: "long",
@@ -133,7 +136,7 @@ export default function JoinedEventsPage() {
 
                                     <Link
                                         href={`/events/${event.eventId}`}
-                                        className="mt-5 block rounded-lg bg-[#bd2929] py-2.5 text-center font-medium text-white transition-colors hover:bg-[#a91f1f]"
+                                        className="btn-shine mt-5 block rounded-lg bg-[#bd2929] py-2.5 text-center font-medium text-white shadow-md shadow-[#bd2929]/20 transition hover:bg-[#a91f1f] active:scale-[0.98]"
                                     >
                                         View Event
                                     </Link>
