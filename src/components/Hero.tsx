@@ -8,7 +8,7 @@ const Hero = () => {
             {/* Background Image */}
             <div className="absolute inset-0 -z-10">
                 <Image
-                    src="/images/gp.jfif"
+                    src="/images/gp.jpg"
                     alt="People working for the community"
                     fill
                     priority
