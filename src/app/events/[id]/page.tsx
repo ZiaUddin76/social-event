@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import Link from "next/link"
 import { connection } from "next/server"
@@ -19,9 +18,6 @@ import type { DatabaseEvent } from "@/types/event"
 import JoinEventButton from "@/components/events/JoinEventButton"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
-
-
-
 
 export const instant = false
 
@@ -55,8 +51,6 @@ export default async function EventDetailsPage({
 
   const { id } = await params
 
-
-
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/event/${encodeURIComponent(id)}`,
     {
@@ -84,12 +78,12 @@ export default async function EventDetailsPage({
   const eventDate = formatShortDate(event.eventDate)
 
   return (
-    <main className="flex-1 bg-[#faf8f5]">
+    <main className="flex-1 bg-[#faf8f5] dark:bg-background">
       {/* Breadcrumb */}
       <section className="mx-auto max-w-7xl px-5 pt-8 sm:px-8">
         <Link
           href="/upcoming-events"
-          className="group inline-flex items-center gap-2 text-sm font-semibold text-[#716963] transition-colors hover:text-[#bd2929]"
+          className="group inline-flex items-center gap-2 text-sm font-semibold text-[#716963] transition-colors hover:text-[#bd2929] dark:text-muted-foreground"
         >
           <ArrowLeft
             size={18}
@@ -134,7 +128,7 @@ export default async function EventDetailsPage({
             </div>
 
             {/* Event description */}
-            <div className="mt-8 rounded-3xl border border-[#eee5df] bg-white p-6 shadow-sm sm:p-9">
+            <div className="mt-8 rounded-3xl border border-[#eee5df] bg-white p-6 shadow-sm dark:border-border dark:bg-card sm:p-9">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#bd2929]/10 text-[#bd2929]">
                   <HandHeart size={23} />
@@ -144,26 +138,26 @@ export default async function EventDetailsPage({
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#bd2929]">
                     The purpose
                   </p>
-                  <h2 className="text-xl font-bold text-[#292321]">
+                  <h2 className="text-xl font-bold text-[#292321] dark:text-card-foreground">
                     About this event
                   </h2>
                 </div>
               </div>
 
-              <p className="mt-6 whitespace-pre-line text-base leading-8 text-[#716963]">
+              <p className="mt-6 whitespace-pre-line text-base leading-8 text-[#716963] dark:text-muted-foreground">
                 {event.description}
               </p>
 
-              <div className="mt-8 flex items-start gap-4 rounded-2xl bg-[#faf8f5] p-5">
+              <div className="mt-8 flex items-start gap-4 rounded-2xl bg-[#faf8f5] p-5 dark:bg-background">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#bd2929]/10 text-[#bd2929]">
                   <Heart size={19} />
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-[#292321]">
+                  <h3 className="font-bold text-[#292321] dark:text-foreground">
                     Every contribution matters
                   </h3>
-                  <p className="mt-1 text-sm leading-6 text-[#716963]">
+                  <p className="mt-1 text-sm leading-6 text-[#716963] dark:text-muted-foreground">
                     Your time, effort, and kindness can help create a positive
                     change in the community.
                   </p>
@@ -198,7 +192,7 @@ export default async function EventDetailsPage({
 
           {/* Right: Event information and join panel */}
           <aside className="lg:sticky lg:top-8">
-            <div className="overflow-hidden rounded-3xl border border-[#eee5df] bg-white shadow-sm">
+            <div className="overflow-hidden rounded-3xl border border-[#eee5df] bg-white shadow-sm dark:border-border dark:bg-card">
               {/* Date header */}
               <div className="flex items-center justify-between bg-[#bd2929] px-6 py-5 text-white">
                 <div>
@@ -213,21 +207,21 @@ export default async function EventDetailsPage({
 
               <div className="p-6">
                 {/* Date display */}
-                <div className="flex items-center gap-4 rounded-2xl bg-[#faf8f5] p-4">
-                  <div className="flex h-[76px] w-[72px] shrink-0 flex-col items-center justify-center rounded-xl bg-white shadow-sm">
+                <div className="flex items-center gap-4 rounded-2xl bg-[#faf8f5] p-4 dark:bg-background">
+                  <div className="flex h-[76px] w-[72px] shrink-0 flex-col items-center justify-center rounded-xl bg-white shadow-sm dark:border dark:border-border dark:bg-card">
                     <span className="text-2xl font-bold text-[#bd2929]">
                       {eventDate.day}
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#716963]">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#716963] dark:text-muted-foreground">
                       {eventDate.month}
                     </span>
                   </div>
 
                   <div>
-                    <p className="text-sm font-bold text-[#292321]">
+                    <p className="text-sm font-bold text-[#292321] dark:text-foreground">
                       {eventDate.year}
                     </p>
-                    <p className="mt-1 text-xs leading-5 text-[#817771]">
+                    <p className="mt-1 text-xs leading-5 text-[#817771] dark:text-muted-foreground">
                       {formatDate(event.eventDate)}
                     </p>
                   </div>
@@ -240,10 +234,10 @@ export default async function EventDetailsPage({
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#a49a93]">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#a49a93] dark:text-muted-foreground">
                       Location
                     </p>
-                    <p className="mt-1 break-words font-semibold text-[#292321]">
+                    <p className="mt-1 break-words font-semibold text-[#292321] dark:text-card-foreground">
                       {event.location}
                     </p>
                   </div>
@@ -256,10 +250,10 @@ export default async function EventDetailsPage({
                   </div>
 
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#a49a93]">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#a49a93] dark:text-muted-foreground">
                       Event category
                     </p>
-                    <p className="mt-1 font-semibold text-[#292321]">
+                    <p className="mt-1 font-semibold text-[#292321] dark:text-card-foreground">
                       {event.eventType}
                     </p>
                   </div>
@@ -272,32 +266,31 @@ export default async function EventDetailsPage({
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#a49a93]">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#a49a93] dark:text-muted-foreground">
                       Organized by
                     </p>
-                    <p className="mt-1 break-all font-semibold text-[#292321]">
+                    <p className="mt-1 break-all font-semibold text-[#292321] dark:text-card-foreground">
                       {event.creatorEmail}
                     </p>
                   </div>
                 </div>
 
-                <div className="my-7 border-t border-dashed border-[#e8ded7]" />
+                <div className="my-7 border-t border-dashed border-[#e8ded7] dark:border-border" />
 
                 {/* Join section */}
                 <div>
-                  <p className="text-xl font-bold text-[#292321]">
+                  <p className="text-xl font-bold text-[#292321] dark:text-card-foreground">
                     Be part of the change.
                   </p>
 
-                  <p className="mt-2 text-sm leading-6 text-[#817771]">
+                  <p className="mt-2 text-sm leading-6 text-[#817771] dark:text-muted-foreground">
                     Join this event and contribute your time and energy to
                     something meaningful.
                   </p>
 
                   <JoinEventButton eventId={event._id} />
 
-
-                  <p className="mt-3 text-center text-xs text-[#a49a93]">
+                  <p className="mt-3 text-center text-xs text-[#a49a93] dark:text-muted-foreground">
                     Login will be required to participate.
                   </p>
                 </div>
@@ -307,7 +300,7 @@ export default async function EventDetailsPage({
             {/* Back link */}
             <Link
               href="/upcoming-events"
-              className="mt-5 flex items-center justify-center gap-2 rounded-2xl border border-[#e8ded7] bg-white px-5 py-4 text-sm font-semibold text-[#716963] transition-colors hover:border-[#bd2929] hover:text-[#bd2929]"
+              className="mt-5 flex items-center justify-center gap-2 rounded-2xl border border-[#e8ded7] bg-white px-5 py-4 text-sm font-semibold text-[#716963] transition-colors hover:border-[#bd2929] hover:text-[#bd2929] dark:border-border dark:bg-card dark:text-muted-foreground"
             >
               <ArrowLeft size={17} />
               Explore more events

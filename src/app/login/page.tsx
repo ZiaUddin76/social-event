@@ -67,8 +67,8 @@ const LoginPage = () => {
     }
 
     return (
-        <main className="min-h-[calc(100vh-80px)] bg-[#faf8f5] px-4 py-10 sm:px-6 lg:px-8">
-            <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl shadow-[#4b1717]/10 lg:min-h-[680px] lg:grid-cols-2">
+        <main className="min-h-[calc(100vh-80px)] bg-[#faf8f5] px-4 py-10 dark:bg-background sm:px-6 lg:px-8">
+            <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl shadow-[#4b1717]/10 dark:bg-card lg:min-h-[680px] lg:grid-cols-2">
 
                 {/* Left Side - Community Introduction */}
                 <section className="relative flex flex-col justify-between overflow-hidden bg-[#bd2929] p-8 text-white sm:p-12 lg:p-14">
@@ -122,18 +122,18 @@ const LoginPage = () => {
                 </section>
 
                 {/* Right Side - Login Form */}
-                <section className="flex items-center justify-center px-6 py-12 sm:px-12 lg:px-14">
+                <section className="flex items-center justify-center bg-white px-6 py-12 dark:bg-card sm:px-12 lg:px-14">
                     <div className="w-full max-w-md">
                         <div className="mb-9">
                             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#bd2929]">
                                 Welcome Back
                             </p>
 
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-card-foreground sm:text-4xl">
                                 Sign in to EventHub
                             </h2>
 
-                            <p className="mt-3 text-gray-500">
+                            <p className="mt-3 text-gray-500 dark:text-muted-foreground">
                                 Continue your journey towards making a difference.
                             </p>
                         </div>
@@ -144,7 +144,7 @@ const LoginPage = () => {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="mb-2 block text-sm font-semibold text-gray-700"
+                                    className="mb-2 block text-sm font-semibold text-gray-700 dark:text-foreground"
                                 >
                                     Email address
                                 </label>
@@ -155,7 +155,7 @@ const LoginPage = () => {
                                     type="email"
                                     placeholder="you@example.com"
                                     required
-                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:bg-background"
                                 />
                             </div>
 
@@ -163,7 +163,7 @@ const LoginPage = () => {
                             <div>
                                 <label
                                     htmlFor="password"
-                                    className="mb-2 block text-sm font-semibold text-gray-700"
+                                    className="mb-2 block text-sm font-semibold text-gray-700 dark:text-foreground"
                                 >
                                     Password
                                 </label>
@@ -175,7 +175,7 @@ const LoginPage = () => {
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Enter your password"
                                         required
-                                        className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 pr-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10"
+                                        className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 pr-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:bg-background"
                                     />
 
                                     <button
@@ -212,11 +212,11 @@ const LoginPage = () => {
 
                         {/* Divider */}
                         <div className="my-6 flex items-center gap-4">
-                            <div className="h-px flex-1 bg-gray-200" />
-                            <span className="text-xs font-medium uppercase tracking-wider text-gray-400">
+                            <div className="h-px flex-1 bg-gray-200 dark:bg-border" />
+                            <span className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-muted-foreground">
                                 Or continue with
                             </span>
-                            <div className="h-px flex-1 bg-gray-200" />
+                            <div className="h-px flex-1 bg-gray-200 dark:bg-border" />
                         </div>
 
                         {/* Google Login */}
@@ -224,13 +224,13 @@ const LoginPage = () => {
                             type="button"
                             onClick={handleGoogleLogin}
                             disabled={isPending || isGooglePending}
-                            className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-3.5 font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+                            className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-3.5 font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-background dark:text-foreground dark:hover:bg-muted"
                         >
                             <FcGoogle size={20} />
                             {isGooglePending ? "Connecting..." : "Continue with Google"}
                         </button>
 
-                        <p className="mt-7 text-center text-sm text-gray-500">
+                        <p className="mt-7 text-center text-sm text-gray-500 dark:text-muted-foreground">
                             Don&apos;t have an account?{" "}
                             <Link
                                 href="/register"
@@ -240,7 +240,7 @@ const LoginPage = () => {
                             </Link>
                         </p>
 
-                        <p className="mt-8 text-center text-xs leading-5 text-gray-400">
+                        <p className="mt-8 text-center text-xs leading-5 text-gray-400 dark:text-muted-foreground">
                             By signing in, you continue to be part of a community
                             dedicated to making a positive impact.
                         </p>

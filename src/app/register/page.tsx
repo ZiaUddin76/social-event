@@ -73,8 +73,8 @@ const RegisterPage = () => {
     }
 
     return (
-        <main className="min-h-[calc(100vh-80px)] bg-[#faf8f5] px-4 py-10 sm:px-6 lg:px-8">
-            <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl shadow-[#4b1717]/10 lg:min-h-[680px] lg:grid-cols-2">
+        <main className="min-h-[calc(100vh-80px)] bg-[#faf8f5] px-4 py-10 dark:bg-background sm:px-6 lg:px-8">
+            <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl shadow-[#4b1717]/10 dark:bg-card lg:min-h-[680px] lg:grid-cols-2">
 
                 {/* Left Side - Community Introduction */}
                 <section className="relative flex flex-col justify-between overflow-hidden bg-[#bd2929] p-8 text-white sm:p-12 lg:p-14">
@@ -128,18 +128,18 @@ const RegisterPage = () => {
                 </section>
 
                 {/* Right Side - Registration Form */}
-                <section className="flex items-center justify-center px-6 py-12 sm:px-12 lg:px-14">
+                <section className="flex items-center justify-center bg-white px-6 py-12 dark:bg-card sm:px-12 lg:px-14">
                     <div className="w-full max-w-md">
                         <div className="mb-9">
                             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#bd2929]">
                                 Get Started
                             </p>
 
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-card-foreground sm:text-4xl">
                                 Create your account
                             </h2>
 
-                            <p className="mt-3 text-gray-500">
+                            <p className="mt-3 text-gray-500 dark:text-muted-foreground">
                                 Your journey towards making a difference starts here.
                             </p>
                         </div>
@@ -150,7 +150,7 @@ const RegisterPage = () => {
                             <div>
                                 <label
                                     htmlFor="name"
-                                    className="mb-2 block text-sm font-semibold text-gray-700"
+                                    className="mb-2 block text-sm font-semibold text-gray-700 dark:text-foreground"
                                 >
                                     Full name
                                 </label>
@@ -161,7 +161,7 @@ const RegisterPage = () => {
                                     type="text"
                                     placeholder="Enter your full name"
                                     required
-                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:bg-background"
                                 />
                             </div>
 
@@ -169,7 +169,7 @@ const RegisterPage = () => {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="mb-2 block text-sm font-semibold text-gray-700"
+                                    className="mb-2 block text-sm font-semibold text-gray-700 dark:text-foreground"
                                 >
                                     Email address
                                 </label>
@@ -180,7 +180,7 @@ const RegisterPage = () => {
                                     type="email"
                                     placeholder="you@example.com"
                                     required
-                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:bg-background"
                                 />
                             </div>
 
@@ -188,7 +188,7 @@ const RegisterPage = () => {
                             <div>
                                 <label
                                     htmlFor="photoURL"
-                                    className="mb-2 block text-sm font-semibold text-gray-700"
+                                    className="mb-2 block text-sm font-semibold text-gray-700 dark:text-foreground"
                                 >
                                     Profile photo URL
                                 </label>
@@ -199,7 +199,7 @@ const RegisterPage = () => {
                                     type="url"
                                     placeholder="https://example.com/photo.jpg"
                                     required
-                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:bg-background"
                                 />
                             </div>
 
@@ -207,7 +207,7 @@ const RegisterPage = () => {
                             <div>
                                 <label
                                     htmlFor="password"
-                                    className="mb-2 block text-sm font-semibold text-gray-700"
+                                    className="mb-2 block text-sm font-semibold text-gray-700 dark:text-foreground"
                                 >
                                     Password
                                 </label>
@@ -220,7 +220,7 @@ const RegisterPage = () => {
                                         placeholder="Create a strong password"
                                         required
                                         minLength={6}
-                                        className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 pr-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10"
+                                        className="w-full rounded-xl border border-gray-200 bg-[#fafafa] px-4 py-3.5 pr-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#bd2929] focus:bg-white focus:ring-4 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground dark:focus:bg-background"
                                     />
 
                                     <button
@@ -239,7 +239,7 @@ const RegisterPage = () => {
                                     </button>
                                 </div>
 
-                                <p className="mt-2 text-xs leading-5 text-gray-400">
+                                <p className="mt-2 text-xs leading-5 text-gray-400 dark:text-muted-foreground">
                                     At least 6 characters, including uppercase and lowercase
                                     letters.
                                 </p>
@@ -262,7 +262,7 @@ const RegisterPage = () => {
                             </button>
                         </form>
 
-                        <p className="mt-7 text-center text-sm text-gray-500">
+                        <p className="mt-7 text-center text-sm text-gray-500 dark:text-muted-foreground">
                             Already have an account?{" "}
                             <Link
                                 href="/login"
@@ -272,7 +272,7 @@ const RegisterPage = () => {
                             </Link>
                         </p>
 
-                        <p className="mt-8 text-center text-xs leading-5 text-gray-400">
+                        <p className="mt-8 text-center text-xs leading-5 text-gray-400 dark:text-muted-foreground">
                             By creating an account, you join a community dedicated to
                             making a positive impact.
                         </p>

@@ -1,8 +1,10 @@
 
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
 import { toast } from "sonner"
 
 import {
@@ -12,6 +14,8 @@ import {
     UsersIcon,
     MenuIcon,
     LogOutIcon,
+    SunIcon,
+    MoonIcon,
 } from "lucide-react"
 
 import { authClient } from "@/lib/auth-client"
@@ -44,11 +48,19 @@ import {
 const Navbar = () => {
     const router = useRouter()
 
+    const { theme, setTheme } = useTheme()
+
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    const toggleTheme = () => {
+        setTheme(theme === "dark" ? "light" : "dark")
+    }
+
     const { data: session, isPending } = authClient.useSession()
-
-
-    // console.log("Session:", session)
-    // console.log("Session pending:", isPending)
 
     const user = session?.user
 
@@ -88,6 +100,22 @@ const Navbar = () => {
                     {/* Desktop & Tablet - Login & Profile */}
                     <div className="ml-auto hidden items-center gap-3 sm:flex">
 
+                        {/* Theme Toggle */}
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={toggleTheme}
+                            title="Toggle theme"
+                            aria-label="Toggle theme"
+                            className="text-white hover:bg-white/10 hover:text-white"
+                        >
+                            {mounted && theme === "dark" ? (
+                                <SunIcon className="size-5" />
+                            ) : (
+                                <MoonIcon className="size-5" />
+                            )}
+                        </Button>
+
                         {/* Login - Logged Out */}
                         {!isPending && !user && (
                             <Link
@@ -111,6 +139,7 @@ const Navbar = () => {
                                                 size="icon"
                                                 className="rounded-full hover:bg-white/10"
                                                 title={user.name || "My Profile"}
+                                                aria-label={user.name || "My Profile"}
                                             >
                                                 <Avatar>
                                                     <AvatarImage
@@ -212,6 +241,25 @@ const Navbar = () => {
                                 </SheetHeader>
 
                                 <div className="flex flex-col gap-5 px-4">
+
+                                    {/* Theme Toggle */}
+                                    <Button
+                                        variant="outline"
+                                        onClick={toggleTheme}
+                                        className="w-full justify-start gap-3"
+                                    >
+                                        {mounted && theme === "dark" ? (
+                                            <>
+                                                <SunIcon className="size-5" />
+                                                Switch to Light Mode
+                                            </>
+                                        ) : (
+                                            <>
+                                                <MoonIcon className="size-5" />
+                                                Switch to Dark Mode
+                                            </>
+                                        )}
+                                    </Button>
 
                                     {/* Upcoming Events */}
                                     <Link

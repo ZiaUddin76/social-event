@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Gallery = () => {
     return (
-        <section className="bg-white py-20">
+        <section className="bg-white py-20 dark:bg-background">
             <div className="mx-auto max-w-6xl px-4">
 
                 {/* Section Heading */}
@@ -11,11 +11,11 @@ const Gallery = () => {
                         Our Community
                     </p>
 
-                    <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-foreground">
                         Moments That Create Change
                     </h2>
 
-                    <p className="mt-4 text-gray-600">
+                    <p className="mt-4 text-gray-600 dark:text-muted-foreground">
                         Every helping hand, shared smile, and meaningful action
                         brings us one step closer to a stronger community.
                     </p>

@@ -83,7 +83,6 @@ export default function CreateEventPage() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-
         const token = await getTokenFromClient()
 
         if (!token) {
@@ -215,8 +214,6 @@ export default function CreateEventPage() {
 
             console.log(data)
 
-
-
             toast.success("Event created successfully!")
 
             router.push("/upcoming-events")
@@ -235,7 +232,7 @@ export default function CreateEventPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#faf8f5] px-4 py-12">
+        <main className="min-h-screen bg-[#faf8f5] px-4 py-12 dark:bg-background">
             <div className="mx-auto max-w-6xl">
                 {/* Page Heading */}
                 <div className="mb-10 text-center">
@@ -243,11 +240,11 @@ export default function CreateEventPage() {
                         Make a Difference
                     </span>
 
-                    <h1 className="mb-3 text-3xl font-bold text-gray-900 md:text-4xl">
+                    <h1 className="mb-3 text-3xl font-bold text-gray-900 dark:text-foreground md:text-4xl">
                         Create an Event
                     </h1>
 
-                    <p className="mx-auto max-w-xl text-gray-600">
+                    <p className="mx-auto max-w-xl text-gray-600 dark:text-muted-foreground">
                         Bring people together, inspire positive change, and
                         make your community a better place.
                     </p>
@@ -255,13 +252,13 @@ export default function CreateEventPage() {
 
                 <div className="grid gap-8 lg:grid-cols-[1fr_350px]">
                     {/* Event Form */}
-                    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
+                    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-border dark:bg-card md:p-8">
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Event Title */}
                             <div>
                                 <label
                                     htmlFor="title"
-                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700"
+                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-card-foreground"
                                 >
                                     <Type size={17} />
                                     Event Title
@@ -277,10 +274,10 @@ export default function CreateEventPage() {
                                     minLength={5}
                                     maxLength={100}
                                     required
-                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground"
                                 />
 
-                                <p className="mt-1 text-xs text-gray-500">
+                                <p className="mt-1 text-xs text-gray-500 dark:text-muted-foreground">
                                     5–100 characters.
                                 </p>
                             </div>
@@ -289,7 +286,7 @@ export default function CreateEventPage() {
                             <div>
                                 <label
                                     htmlFor="eventType"
-                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700"
+                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-card-foreground"
                                 >
                                     <Tag size={17} />
                                     Event Type
@@ -301,7 +298,7 @@ export default function CreateEventPage() {
                                     value={formData.eventType}
                                     onChange={handleChange}
                                     required
-                                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground"
                                 >
                                     <option value="" disabled>
                                         Select an event type
@@ -319,7 +316,7 @@ export default function CreateEventPage() {
                             <div>
                                 <label
                                     htmlFor="description"
-                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700"
+                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-card-foreground"
                                 >
                                     <FileText size={17} />
                                     Event Description
@@ -335,10 +332,10 @@ export default function CreateEventPage() {
                                     minLength={20}
                                     maxLength={1000}
                                     required
-                                    className="w-full resize-none rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="w-full resize-none rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground"
                                 />
 
-                                <p className="mt-1 text-xs text-gray-500">
+                                <p className="mt-1 text-xs text-gray-500 dark:text-muted-foreground">
                                     20–1000 characters.
                                 </p>
                             </div>
@@ -347,7 +344,7 @@ export default function CreateEventPage() {
                             <div>
                                 <label
                                     htmlFor="image"
-                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700"
+                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-card-foreground"
                                 >
                                     <ImageIcon size={17} />
                                     Thumbnail Image URL
@@ -361,19 +358,19 @@ export default function CreateEventPage() {
                                     onChange={handleChange}
                                     placeholder="https://example.com/image.jpg"
                                     required
-                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground"
                                 />
 
                                 {formData.image.trim() && (
                                     <div className="mt-4">
-                                        <p className="mb-2 text-sm font-medium text-gray-600">
+                                        <p className="mb-2 text-sm font-medium text-gray-600 dark:text-muted-foreground">
                                             Image Preview
                                         </p>
 
                                         <img
                                             src={formData.image}
                                             alt="Event thumbnail preview"
-                                            className="h-48 w-full rounded-xl border border-gray-200 object-cover"
+                                            className="h-48 w-full rounded-xl border border-gray-200 object-cover dark:border-border"
                                             onError={(e) => {
                                                 e.currentTarget.style.display = "none"
                                             }}
@@ -389,7 +386,7 @@ export default function CreateEventPage() {
                             <div>
                                 <label
                                     htmlFor="location"
-                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700"
+                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-card-foreground"
                                 >
                                     <MapPin size={17} />
                                     Event Location
@@ -405,10 +402,10 @@ export default function CreateEventPage() {
                                     minLength={3}
                                     maxLength={150}
                                     required
-                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground"
                                 />
 
-                                <p className="mt-1 text-xs text-gray-500">
+                                <p className="mt-1 text-xs text-gray-500 dark:text-muted-foreground">
                                     3–150 characters.
                                 </p>
                             </div>
@@ -417,7 +414,7 @@ export default function CreateEventPage() {
                             <div>
                                 <label
                                     htmlFor="eventDate"
-                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700"
+                                    className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-card-foreground"
                                 >
                                     <CalendarDays size={17} />
                                     Event Date
@@ -432,10 +429,10 @@ export default function CreateEventPage() {
                                     onFocus={updateMinEventDate}
                                     min={minEventDate || undefined}
                                     required
-                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="w-full rounded-lg border border-gray-200 px-4 py-3 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground"
                                 />
 
-                                <p className="mt-2 text-xs text-gray-500">
+                                <p className="mt-2 text-xs text-gray-500 dark:text-muted-foreground">
                                     Events must be scheduled for a future date.
                                 </p>
                             </div>

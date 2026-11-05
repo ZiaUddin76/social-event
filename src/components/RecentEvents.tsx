@@ -31,7 +31,7 @@ export default async function RecentEvents() {
     const events: DatabaseEvent[] = await res.json()
 
     return (
-        <section className="bg-[#faf8f5] py-20">
+        <section className="bg-[#faf8f5] py-20 dark:bg-background">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
 
                 {/* Section heading */}
@@ -41,17 +41,17 @@ export default async function RecentEvents() {
                             Make a difference together
                         </p>
 
-                        <h2 className="text-3xl font-bold tracking-tight text-[#292321] sm:text-4xl">
+                        <h2 className="text-3xl font-bold tracking-tight text-[#292321] dark:text-foreground sm:text-4xl">
                             Recent upcoming events
                             <span className="text-[#bd2929]">.</span>
                         </h2>
 
-                        <p className="mt-3 text-[#716963]">
+                        <p className="mt-3 text-[#716963] dark:text-muted-foreground">
                             Discover the latest opportunities to make a positive impact.
                         </p>
                     </div>
 
-                    <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-[#655d58] shadow-sm">
+                    <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-[#655d58] shadow-sm dark:bg-card dark:text-card-foreground">
                         <Sparkles size={16} className="text-[#bd2929]" />
                         {events.length} events available
                     </div>
@@ -63,7 +63,7 @@ export default async function RecentEvents() {
                         {events.map((event) => (
                             <article
                                 key={event._id}
-                                className="group overflow-hidden rounded-2xl border border-[#eee5df] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                                className="group overflow-hidden rounded-2xl border border-[#eee5df] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-border dark:bg-card"
                             >
                                 {/* Thumbnail */}
                                 <div className="relative h-56 overflow-hidden">
@@ -87,15 +87,15 @@ export default async function RecentEvents() {
                                         {formatDate(event.eventDate)}
                                     </div>
 
-                                    <h3 className="line-clamp-2 text-xl font-bold leading-snug text-[#292321] transition-colors group-hover:text-[#bd2929]">
+                                    <h3 className="line-clamp-2 text-xl font-bold leading-snug text-[#292321] transition-colors group-hover:text-[#bd2929] dark:text-card-foreground">
                                         {event.title}
                                     </h3>
 
-                                    <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#817771]">
+                                    <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#817771] dark:text-muted-foreground">
                                         {event.description}
                                     </p>
 
-                                    <div className="mt-5 flex items-center gap-2 border-t border-[#f0e9e4] pt-4 text-sm text-[#716963]">
+                                    <div className="mt-5 flex items-center gap-2 border-t border-[#f0e9e4] pt-4 text-sm text-[#716963] dark:border-border dark:text-muted-foreground">
                                         <MapPin size={16} className="shrink-0 text-[#bd2929]" />
                                         <span className="truncate">{event.location}</span>
                                     </div>
@@ -112,14 +112,14 @@ export default async function RecentEvents() {
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-dashed border-[#dfcfc5] bg-white px-5 py-16 text-center">
+                    <div className="rounded-2xl border border-dashed border-[#dfcfc5] bg-white px-5 py-16 text-center dark:border-border dark:bg-card">
                         <CalendarDays size={40} className="mx-auto text-[#bd2929]" />
 
-                        <h3 className="mt-5 text-xl font-bold text-[#292321]">
+                        <h3 className="mt-5 text-xl font-bold text-[#292321] dark:text-card-foreground">
                             No upcoming events yet
                         </h3>
 
-                        <p className="mt-2 text-sm text-[#817771]">
+                        <p className="mt-2 text-sm text-[#817771] dark:text-muted-foreground">
                             Check back soon. New opportunities to make a difference are
                             always welcome.
                         </p>

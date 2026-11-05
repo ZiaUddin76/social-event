@@ -60,7 +60,7 @@ const Hero = () => {
 
 
                     {/* Hero Statistics */}
-                    <div className="mt-12 grid grid-cols-4 gap-3">
+                    <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
                         <div className="rounded-full border border-white/30 bg-white/10 px-3 py-2 text-center text-xs text-white backdrop-blur-sm">
                             <span className="font-bold">1,500+</span> Active Volunteers
                         </div>

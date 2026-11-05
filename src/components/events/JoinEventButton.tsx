@@ -13,7 +13,6 @@ type JoinEventButtonProps = {
     eventId: string
 }
 
-
 export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
     const router = useRouter()
     const { data: session, isPending } = authClient.useSession()
@@ -46,7 +45,7 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
 
         if (isPending || !session) return
 
-        checkJoined().catch(() => {})
+        checkJoined().catch(() => { })
     }, [eventId, isPending, session])
 
     const redirectToLogin = () => {
@@ -109,13 +108,12 @@ export default function JoinEventButton({ eventId }: JoinEventButtonProps) {
         }
     }
 
-
     return (
         <button
             type="button"
             onClick={handleJoin}
             disabled={isPending || isJoining || hasJoined}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-4 font-bold text-white transition-colors hover:bg-[#9e2020] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-5 py-4 font-bold text-white transition-colors hover:bg-[#9e2020] disabled:cursor-not-allowed disabled:opacity-60 dark:disabled:bg-muted dark:disabled:text-muted-foreground"
         >
             {hasJoined
                 ? "Already joined"

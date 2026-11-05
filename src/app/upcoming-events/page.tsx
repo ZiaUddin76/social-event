@@ -1,4 +1,3 @@
-
 import Link from "next/link"
 import Image from "next/image"
 import { connection } from "next/server"
@@ -50,28 +49,28 @@ export default async function UpcomingEventsPage() {
     .sort((a, b) => a.eventDate.localeCompare(b.eventDate))
 
   return (
-    <main className="flex-1 bg-[#faf8f5]">
+    <main className="flex-1 bg-[#faf8f5] dark:bg-background">
       {/* Intro section */}
-      <section className="relative overflow-hidden border-b border-[#eadfd7]">
+      <section className="relative overflow-hidden border-b border-[#eadfd7] dark:border-border">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
           <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#e8c9c5] bg-white px-4 py-2 text-sm font-medium text-[#bd2929]">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#e8c9c5] bg-white px-4 py-2 text-sm font-medium text-[#bd2929] dark:border-border dark:bg-card">
               <Sparkles size={16} />
               Discover opportunities to make a difference
             </div>
 
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#292321] sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#292321] dark:text-foreground sm:text-5xl lg:text-6xl">
               Be part of something{" "}
               <span className="text-[#bd2929]">meaningful.</span>
             </h1>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-[#716963] sm:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[#716963] dark:text-muted-foreground sm:text-lg">
               Every small action creates a bigger impact. Discover upcoming
               community events, meet people who care, and help build a better
               tomorrow.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-6 text-sm text-[#655d58]">
+            <div className="mt-9 flex flex-wrap items-center gap-6 text-sm text-[#655d58] dark:text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Users size={18} className="text-[#bd2929]" />
                 Make new connections
@@ -96,16 +95,16 @@ export default async function UpcomingEventsPage() {
               Find your next opportunity
             </p>
 
-            <h2 className="text-3xl font-bold tracking-tight text-[#292321] sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-[#292321] dark:text-foreground sm:text-4xl">
               Upcoming events<span className="text-[#bd2929]">.</span>
             </h2>
 
-            <p className="mt-3 text-[#716963]">
+            <p className="mt-3 text-[#716963] dark:text-muted-foreground">
               Find an event that matches your passion.
             </p>
           </div>
 
-          <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-[#655d58] shadow-sm">
+          <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-[#655d58] shadow-sm dark:border dark:border-border dark:bg-card dark:text-muted-foreground">
             <CalendarDays size={16} className="text-[#bd2929]" />
             {upcomingEvents.length} events available
           </div>
@@ -116,7 +115,7 @@ export default async function UpcomingEventsPage() {
             {upcomingEvents.map((event) => (
               <article
                 key={event._id}
-                className="group overflow-hidden rounded-2xl border border-[#eee5df] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="group overflow-hidden rounded-2xl border border-[#eee5df] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-border dark:bg-card"
               >
                 {/* Thumbnail */}
                 <div className="relative h-56 overflow-hidden">
@@ -140,15 +139,15 @@ export default async function UpcomingEventsPage() {
                     {formatDate(event.eventDate)}
                   </div>
 
-                  <h3 className="line-clamp-2 text-xl font-bold leading-snug text-[#292321] transition-colors group-hover:text-[#bd2929]">
+                  <h3 className="line-clamp-2 text-xl font-bold leading-snug text-[#292321] transition-colors group-hover:text-[#bd2929] dark:text-card-foreground">
                     {event.title}
                   </h3>
 
-                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#817771]">
+                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#817771] dark:text-muted-foreground">
                     {event.description}
                   </p>
 
-                  <div className="mt-5 flex items-center gap-2 border-t border-[#f0e9e4] pt-4 text-sm text-[#716963]">
+                  <div className="mt-5 flex items-center gap-2 border-t border-[#f0e9e4] pt-4 text-sm text-[#716963] dark:border-border dark:text-muted-foreground">
                     <MapPin size={16} className="shrink-0 text-[#bd2929]" />
                     <span className="truncate">{event.location}</span>
                   </div>
@@ -165,14 +164,14 @@ export default async function UpcomingEventsPage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-dashed border-[#dfcfc5] bg-white px-5 py-16 text-center">
+          <div className="rounded-2xl border border-dashed border-[#dfcfc5] bg-white px-5 py-16 text-center dark:border-border dark:bg-card">
             <CalendarDays size={40} className="mx-auto text-[#bd2929]" />
 
-            <h3 className="mt-5 text-xl font-bold text-[#292321]">
+            <h3 className="mt-5 text-xl font-bold text-[#292321] dark:text-card-foreground">
               No upcoming events yet
             </h3>
 
-            <p className="mt-2 text-sm text-[#817771]">
+            <p className="mt-2 text-sm text-[#817771] dark:text-muted-foreground">
               Check back soon. New opportunities to make a difference are
               always welcome.
             </p>

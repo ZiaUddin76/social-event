@@ -2,10 +2,10 @@ import { MailIcon, ArrowRightIcon, HeartIcon } from "lucide-react"
 
 const Newsletter = () => {
     return (
-        <section className="bg-[#f8f6f4] py-20">
+        <section className="bg-[#f8f6f4] py-20 dark:bg-background">
             <div className="mx-auto max-w-6xl px-4">
 
-                <div className="relative overflow-hidden rounded-3xl bg-white px-6 py-14 shadow-sm sm:px-12 md:px-20">
+                <div className="relative overflow-hidden rounded-3xl bg-white px-6 py-14 shadow-sm dark:border dark:border-border dark:bg-card sm:px-12 md:px-20">
 
                     {/* Decorative background shapes */}
                     <div className="absolute -left-16 -top-16 size-48 rounded-full bg-[#bd2929]/5" />
@@ -25,14 +25,14 @@ const Newsletter = () => {
                             </p>
                         </div>
 
-                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-card-foreground sm:text-4xl">
                             Join a Community That
                             <span className="block text-[#bd2929]">
                                 Creates Real Change.
                             </span>
                         </h2>
 
-                        <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-600">
+                        <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-gray-600 dark:text-muted-foreground">
                             Get updates about meaningful events, volunteer opportunities,
                             and inspiring stories from people making a difference.
                         </p>
@@ -46,13 +46,13 @@ const Newsletter = () => {
                                 <input
                                     type="email"
                                     placeholder="Enter your email address"
-                                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 pl-12 pr-4 text-sm text-gray-900 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10"
+                                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 pl-12 pr-4 text-sm text-gray-900 outline-none transition focus:border-[#bd2929] focus:ring-2 focus:ring-[#bd2929]/10 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground"
                                 />
                             </div>
 
                             <button
                                 type="button"
-                                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#9f2222] cursor-pointer"
+                                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#bd2929] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#9f2222]"
                             >
                                 Join Us
                                 <ArrowRightIcon className="size-4" />
@@ -60,7 +60,7 @@ const Newsletter = () => {
 
                         </div>
 
-                        <p className="mt-5 text-xs text-gray-500">
+                        <p className="mt-5 text-xs text-gray-500 dark:text-muted-foreground">
                             No spam. Just meaningful opportunities and community updates.
                         </p>
 
