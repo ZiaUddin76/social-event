@@ -14,8 +14,8 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import type { Event } from "@/types/event"
-import { authClient } from "@/lib/auth-client"
 import { getTokenFromClient } from "@/lib/GetTokenFromClient"
+import { useRouter } from "next/navigation"
 
 const eventTypes = [
     "Cleanup",
@@ -28,6 +28,9 @@ const eventTypes = [
 ]
 
 export default function CreateEventPage() {
+
+    const router = useRouter()
+
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [minEventDate, setMinEventDate] = useState("")
 
@@ -216,15 +219,7 @@ export default function CreateEventPage() {
 
             toast.success("Event created successfully!")
 
-            // Reset form after successful submission
-            setFormData({
-                title: "",
-                eventType: "",
-                description: "",
-                image: "",
-                location: "",
-                eventDate: "",
-            })
+            router.push("/upcoming-events")
 
         } catch (error) {
             console.error(error)
