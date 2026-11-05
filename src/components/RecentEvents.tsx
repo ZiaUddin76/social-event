@@ -31,7 +31,8 @@ export default async function RecentEvents() {
     const events: DatabaseEvent[] = await res.json()
 
     return (
-        <section className="bg-[#faf8f5] py-20 dark:bg-background">
+        <section className="bg-[#faf8f5] py-20 dark:bg-background scroll-mt-20"
+        id="recent-events">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
 
                 {/* Section heading */}

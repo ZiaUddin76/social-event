@@ -1,3 +1,6 @@
+"use client"
+
+import { ArrowDown } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -45,10 +48,16 @@ const Hero = () => {
                     <div className="mt-9 flex flex-wrap items-center gap-4 animate-fade-up [animation-delay:360ms]">
 
                         <Link
-                            href="/upcoming-events"
+                            href="#recent-events"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                document
+                                    .getElementById("recent-events")
+                                    ?.scrollIntoView({ behavior: "smooth" })
+                            }}
                             className="btn-shine rounded-md bg-[#bd2929] px-7 py-3 font-semibold text-white shadow-lg shadow-[#bd2929]/40 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-700 active:translate-y-0 active:scale-[0.98]"
                         >
-                            Explore Events →
+                             Explore Events <ArrowDown className="ml-2 inline h-4 w-4" />
                         </Link>
 
                         <Link
