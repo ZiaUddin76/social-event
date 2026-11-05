@@ -62,8 +62,8 @@ const RegisterPage = () => {
                 return
             }
 
-            toast.success("Account created successfully!")
-
+            // Redirect to the home page; the success toast is shown there
+            // by AuthSuccessToast (same pattern as the login success toast).
             router.push("/?register=success")
         } catch {
             toast.error("Something went wrong. Please try again.")
